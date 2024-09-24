@@ -1,16 +1,24 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./mongodb_data:/data/db
+  postgres:
+    image: postgres:13
+    container_name: ecommerce_pg_db
+    restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: products
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres_network
 
 volumes:
-  mongodb_data:
+  pgdata:
+
+networks:
+  postgres_network:
+    driver: bridge
