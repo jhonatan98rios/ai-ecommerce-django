@@ -1,0 +1,4 @@
+ENV
+.env
+mongodb_data
+__pycache__
